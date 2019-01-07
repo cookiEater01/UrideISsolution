@@ -1,25 +1,25 @@
 ﻿@model IEnumerable<Uride.Models.Voznja>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vožnje";
 }
 
-<h2>Index</h2>
+<h2>Vožnje</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ustvari novo vožnjo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DolzinaPoti)
+                Dolžina poti
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Uporabnik)
+                Ime in priimek Stranke
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Voznik)
+                Ime in priimek Voznika
             </th>
             <th></th>
         </tr>
@@ -31,15 +31,15 @@
                 @Html.DisplayFor(modelItem => item.DolzinaPoti)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Uporabnik.MobStev)
+                @Html.DisplayFor(modelItem => item.Uporabnik.Ime) @Html.DisplayFor(modelItem => item.Uporabnik.Priimek)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Voznik.Ime)
+                @Html.DisplayFor(modelItem => item.Voznik.Ime) @Html.DisplayFor(modelItem => item.Voznik.Priimek)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.VoznjaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.VoznjaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.VoznjaId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.VoznjaId">Uredi</a> |
+                <a asp-action="Details" asp-route-id="@item.VoznjaId">Podrobnejši podatki</a> |
+                <a asp-action="Delete" asp-route-id="@item.VoznjaId">Izbriši</a>
             </td>
         </tr>
 }

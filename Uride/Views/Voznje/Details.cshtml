@@ -1,36 +1,43 @@
 ﻿@model Uride.Models.Voznja
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Podrobnejši podatki";
 }
 
-<h2>Details</h2>
+<h2>Podrobnejši podatki</h2>
 
 <div>
     <h4>Voznja</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.DolzinaPoti)
+            Dolžina poti
         </dt>
         <dd>
             @Html.DisplayFor(model => model.DolzinaPoti)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Uporabnik)
+            Stranka
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Uporabnik.MobStev)
+            @Html.DisplayFor(model => model.Uporabnik.Ime) @Html.DisplayFor(model => model.Uporabnik.Priimek)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Voznik)
+            Voznik
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Voznik.Ime)
+            @Html.DisplayFor(model => model.Voznik.Ime) @Html.DisplayFor(model => model.Voznik.Priimek)
+        </dd>
+        <dt>
+            Vozilo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Voznik.Avto.Znamka) @Html.DisplayFor(model => model.Voznik.Avto.Model)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.VoznjaId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.VoznjaId">Uredi</a> |
+    <a asp-action="Index">Nazaj na seznam vseh</a>
 </div>
