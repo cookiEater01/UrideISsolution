@@ -45,6 +45,7 @@ namespace Uride.Controllers
         // GET: Stranke/Create
         public IActionResult Create()
         {
+            ViewData["UpImeIda"] = User.getUserId();
             return View();
         }
 
