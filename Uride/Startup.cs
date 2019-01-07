@@ -13,9 +13,25 @@ using Uride.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Uride.Models;
+using System.Security.Claims;
 
 namespace Uride
 {
+
+    public static class ExtensionMethods
+    {
+        public static string getUserId(this ClaimsPrincipal user)
+        {
+            if (!user.Identity.IsAuthenticated)
+                return null;
+
+            ClaimsPrincipal currentUser = user;
+            var a = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+    }
+
     public class Startup
     {
         public Startup(IConfiguration configuration)

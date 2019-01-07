@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Uride.Models;
+using Uride;
 
 namespace Uride.Controllers
 {
@@ -44,10 +45,13 @@ namespace Uride.Controllers
             return View(voznik);
         }
 
+        
+
         // GET: Vozniki/Create
         public IActionResult Create()
         {
             ViewData["AvtoId"] = new SelectList(_context.Vozilo, "AvtoId", "Model");
+            ViewData["UpImeIda"] = User.getUserId();
             return View();
         }
 
