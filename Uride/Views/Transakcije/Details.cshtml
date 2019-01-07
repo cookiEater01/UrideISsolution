@@ -1,10 +1,10 @@
 ﻿@model Uride.Models.Transakcija
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Podrobnejši podatki";
 }
 
-<h2>Details</h2>
+<h2>Podrobnejši podatki</h2>
 
 <div>
     <h4>Transakcija</h4>
@@ -14,17 +14,37 @@
             @Html.DisplayNameFor(model => model.Znesek)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Znesek)
+            @Html.DisplayFor(model => model.Znesek) €
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.IdvoznjeNavigation)
+            Dolžina poti
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.IdvoznjeNavigation.VoznjaId)
+            @Html.DisplayFor(model => model.IdvoznjeNavigation.DolzinaPoti)
         </dd>
+
+        <dt>
+            Avtomobil
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdvoznjeNavigation.Voznik.AvtoId)
+            @Html.DisplayFor(model => model.IdvoznjeNavigation.Voznik.Avto.Znamka) @Html.DisplayFor(model => model.IdvoznjeNavigation.Voznik.Avto.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdvoznjeNavigation.VoznjaId)
+        </dt>
+
+        <dd>
+            <a href="/Voznje/Details/@Html.DisplayFor(model => model.IdvoznjeNavigation.VoznjaId)">@Html.DisplayFor(model => model.IdvoznjeNavigation.VoznjaId)</a>
+        </dd>
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.StRacuna">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.StRacuna">Uredi</a> |
+    <a asp-action="Index">Nazaj na seznam vseh</a>
 </div>
