@@ -19,7 +19,7 @@ namespace Uride.Models
         public bool Upokojen { get; set; }
         public string UpImeId { get; set; }
 
-        public Vozilo Avto { get; set; }
-        public ICollection<Voznja> Voznja { get; set; }
+        public virtual Vozilo Avto { get; set; }
+        public virtual ICollection<Voznja> Voznja { get; set; }
     }
 }

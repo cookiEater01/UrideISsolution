@@ -17,6 +17,6 @@ namespace Uride.Models
         public string MobStev { get; set; }
         public string UpImeId { get; set; }
 
-        public ICollection<Voznja> Voznja { get; set; }
+        public virtual ICollection<Voznja> Voznja { get; set; }
     }
 }

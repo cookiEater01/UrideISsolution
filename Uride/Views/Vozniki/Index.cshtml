@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Uride.Models.Voznik>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vozniki";
 }
 
-<h2>Index</h2>
+<h2>Vozniki</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ustvari novega voznika</a>
 </p>
 <table class="table">
     <thead>
@@ -22,16 +22,13 @@
                 @Html.DisplayNameFor(model => model.Naslov)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MobStev)
+                Telefonska Številka
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Upokojen)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpImeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Avto)
+                Avtomobil
             </th>
             <th></th>
         </tr>
@@ -55,15 +52,12 @@
                 @Html.DisplayFor(modelItem => item.Upokojen)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpImeId)
+                @Html.DisplayFor(modelItem => item.Avto.Znamka) @Html.DisplayFor(modelItem => item.Avto.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Avto.Model)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StVozniske">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StVozniske">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StVozniske">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.StVozniske">Uredi</a> |
+                <a asp-action="Details" asp-route-id="@item.StVozniske">Podrobnejši podatki</a> |
+                <a asp-action="Delete" asp-route-id="@item.StVozniske">Izbriši</a>
             </td>
         </tr>
 }

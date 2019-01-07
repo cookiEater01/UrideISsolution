@@ -15,8 +15,8 @@ namespace Uride.Models
         public int VoznikId { get; set; }
         public decimal DolzinaPoti { get; set; }
 
-        public Stranka Uporabnik { get; set; }
-        public Voznik Voznik { get; set; }
-        public ICollection<Transakcija> Transakcija { get; set; }
+        public virtual Stranka Uporabnik { get; set; }
+        public virtual Voznik Voznik { get; set; }
+        public virtual ICollection<Transakcija> Transakcija { get; set; }
     }
 }

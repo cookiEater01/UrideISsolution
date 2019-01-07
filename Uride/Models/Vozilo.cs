@@ -16,6 +16,6 @@ namespace Uride.Models
         public double CenaKm { get; set; }
         public int StSedezev { get; set; }
 
-        public ICollection<Voznik> Voznik { get; set; }
+        public virtual ICollection<Voznik> Voznik { get; set; }
     }
 }

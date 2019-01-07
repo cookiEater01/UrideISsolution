@@ -1,10 +1,10 @@
 ﻿@model Uride.Models.Voznik
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Podrobnejši podatki";
 }
 
-<h2>Details</h2>
+<h2>Podrobnejši podatki</h2>
 
 <div>
     <h4>Voznik</h4>
@@ -29,7 +29,7 @@
             @Html.DisplayFor(model => model.Naslov)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MobStev)
+            Telefonska številka
         </dt>
         <dd>
             @Html.DisplayFor(model => model.MobStev)
@@ -47,14 +47,31 @@
             @Html.DisplayFor(model => model.UpImeId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Avto)
+            @Html.DisplayNameFor(model => model.Avto.Znamka)
         </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avto.Znamka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Avto.Model)
+        </dt>
+
         <dd>
             @Html.DisplayFor(model => model.Avto.Model)
+        </dd>
+
+        <dt>
+            Cena prevoženega km
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avto.CenaKm)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.StVozniske">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.StVozniske">Uredi</a> |
+    <a asp-action="Index">Nazaj na seznam vseh</a>
 </div>

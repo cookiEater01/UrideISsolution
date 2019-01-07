@@ -9,6 +9,6 @@ namespace Uride.Models
         public decimal Znesek { get; set; }
         public int Idvoznje { get; set; }
 
-        public Voznja IdvoznjeNavigation { get; set; }
+        public virtual Voznja IdvoznjeNavigation { get; set; }
     }
 }
