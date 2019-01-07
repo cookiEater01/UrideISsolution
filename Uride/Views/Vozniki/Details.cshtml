@@ -1,0 +1,60 @@
+﻿@model Uride.Models.Voznik
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Voznik</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Priimek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Priimek)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Naslov)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Naslov)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MobStev)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MobStev)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Upokojen)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Upokojen)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpImeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpImeId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Avto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Avto.Model)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.StVozniske">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Uride.Models.Vozilo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Znamka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CenaKm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StSedezev)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Znamka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CenaKm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StSedezev)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AvtoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AvtoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AvtoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

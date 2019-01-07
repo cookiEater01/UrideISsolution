@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Uride.Models.Transakcija>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Znesek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdvoznjeNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Znesek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdvoznjeNavigation.VoznjaId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StRacuna">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StRacuna">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StRacuna">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

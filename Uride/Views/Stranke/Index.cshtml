@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Uride.Models.Stranka>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priimek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naslov)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobStev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpImeId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priimek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naslov)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobStev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpImeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StrankaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StrankaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StrankaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

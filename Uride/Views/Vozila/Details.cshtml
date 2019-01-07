@@ -1,0 +1,42 @@
+﻿@model Uride.Models.Vozilo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vozilo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Znamka)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Znamka)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CenaKm)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CenaKm)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StSedezev)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StSedezev)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AvtoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

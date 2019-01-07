@@ -1,0 +1,51 @@
+﻿@model Uride.Models.Stranka
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Stranka</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Priimek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Priimek)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Naslov)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Naslov)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MobStev)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MobStev)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpImeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpImeId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="StrankaId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
