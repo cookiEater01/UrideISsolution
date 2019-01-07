@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registracija";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>Ustvari nov račun.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -27,7 +27,13 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <div class="form-group">
+                <label>Vrsta računa</label></br>
+                <label><input type="radio" name="Role" value="1" /> Admin</label>
+                <label><input type="radio" name="Role" checked value="2" />Customer</label>
+                <label><input type="radio" name="Role" value="3" />Driver</label>
+            </div>
+            <button type="submit" class="btn btn-default">Registriraj</button>
         </form>
     </div>
 </div>

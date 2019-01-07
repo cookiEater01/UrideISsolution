@@ -29,7 +29,6 @@ namespace Uride
             var a = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             return currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
-
     }
 
     public class Startup
