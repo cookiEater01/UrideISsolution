@@ -33,6 +33,11 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li>@Html.ActionLink("Vozila", "Index", "Vozila")</li>
+                    <li>@Html.ActionLink("Vozniki", "Index", "Vozniki")</li>
+                    <li>@Html.ActionLink("Stranke", "Index", "Stranke")</li>
+                    <li>@Html.ActionLink("Vožnje", "Index", "Voznje")</li>
+                    <li>@Html.ActionLink("Računi", "Index", "Transakcije")</li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
