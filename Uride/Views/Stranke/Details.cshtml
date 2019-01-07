@@ -1,10 +1,10 @@
 ﻿@model Uride.Models.Stranka
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Podrobnejši podatki";
 }
 
-<h2>Details</h2>
+<h2>Podrobnejši podatki</h2>
 
 <div>
     <h4>Stranka</h4>
@@ -29,7 +29,7 @@
             @Html.DisplayFor(model => model.Naslov)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MobStev)
+            Telefonska številka
         </dt>
         <dd>
             @Html.DisplayFor(model => model.MobStev)
@@ -43,6 +43,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.StrankaId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.StrankaId">Uredi</a> |
+    <a asp-action="Index">Nazaj na seznam vseh</a>
 </div>
