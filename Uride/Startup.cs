@@ -43,6 +43,7 @@ namespace Uride
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -54,6 +55,7 @@ namespace Uride
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<IdentityOptions>(options =>
@@ -84,7 +86,7 @@ namespace Uride
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -95,6 +97,46 @@ namespace Uride
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+            }
+
+            if (!roleManager.RoleExistsAsync("Admin").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "Admin";
+                IdentityResult roleResult = roleManager.
+                CreateAsync(role).Result;
+            }
+
+            if (!roleManager.RoleExistsAsync("Driver").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "Driver";
+                IdentityResult roleResult = roleManager.
+                CreateAsync(role).Result;
+            }
+
+            if (!roleManager.RoleExistsAsync("Customer").Result)
+            {
+                IdentityRole role = new IdentityRole();
+                role.Name = "Customer";
+                IdentityResult roleResult = roleManager.
+                CreateAsync(role).Result;
+            }
+
+            if (userManager.FindByNameAsync("Admin").Result == null)
+            {
+                IdentityUser user = new IdentityUser();
+                user.UserName = "Admin";
+                user.Email = "admin@uride.com";
+
+                IdentityResult result = userManager.CreateAsync
+                (user, "admin1").Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user,
+                                        "Admin").Wait();
+                }
             }
 
             app.UseHttpsRedirection();

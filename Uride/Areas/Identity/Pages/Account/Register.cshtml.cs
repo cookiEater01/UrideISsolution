@@ -91,7 +91,8 @@ namespace Uride.Areas.Identity.Pages.Account
                         rule = "customer";
                     }
 
-                    await _userManager.AddToRoleAsync(user, rule);
+                    //var userN = await _userManager.FindByIdAsync(User.getUserId());
+                    var status2 = await _userManager.AddToRoleAsync(user, rule);
 
                     /*
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
