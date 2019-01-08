@@ -71,10 +71,13 @@ namespace Uride
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
+
+            //var defaultconnection = @"Data Source=uride-server.database.windows.net;Initial Catalog=UrideUsers;User ID=admin1;Password=Administrator1";
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            /*services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(defaultconnection));*/
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -103,7 +106,9 @@ namespace Uride
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=DataUride;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<DataUrideContext>(options => options.UseSqlServer(connection));
+            //var connection = @"Data Source=uride-server.database.windows.net;Initial Catalog=DataUride;User ID=admin1;Password=Administrator1";
+            //services.AddDbContext<DataUrideContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<DataUrideContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -144,10 +149,10 @@ namespace Uride
                 CreateAsync(role).Result;
             }
 
-            if (userManager.FindByNameAsync("Admin").Result == null)
+            if (userManager.FindByNameAsync("admin@uride.com").Result == null)
             {
                 IdentityUser user = new IdentityUser();
-                user.UserName = "Admin";
+                user.UserName = "admin@uride.com";
                 user.Email = "admin@uride.com";
 
                 IdentityResult result = userManager.CreateAsync
