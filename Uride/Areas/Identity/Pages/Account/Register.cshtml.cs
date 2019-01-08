@@ -80,15 +80,12 @@ namespace Uride.Areas.Identity.Pages.Account
 
                     var clicked = Request.Form["Role"];
                     var rule = "";
-                    if (clicked == 1)
+                    if (clicked ==  2)
                     {
-                        rule = "admin";
-                    } else if (clicked ==  2)
-                    {
-                        rule = "driver";
+                        rule = "Driver";
                     } else
                     {
-                        rule = "customer";
+                        rule = "Customer";
                     }
 
                     //var userN = await _userManager.FindByIdAsync(User.getUserId());
