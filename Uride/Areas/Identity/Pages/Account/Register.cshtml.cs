@@ -78,9 +78,9 @@ namespace Uride.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var clicked = Request.Form["Role"];
+                    string clicked = Request.Form["Role"];
                     var rule = "";
-                    if (clicked ==  2)
+                    if (clicked.Equals("2"))
                     {
                         rule = "Driver";
                     } else
@@ -89,7 +89,8 @@ namespace Uride.Areas.Identity.Pages.Account
                     }
 
                     //var userN = await _userManager.FindByIdAsync(User.getUserId());
-                    var status2 = await _userManager.AddToRoleAsync(user, rule);
+                    //var status2 = await _userManager.AddToRoleAsync(user, rule);
+                    addToUser.addRole(user, rule, _userManager);
 
                     /*
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -105,11 +106,7 @@ namespace Uride.Areas.Identity.Pages.Account
                     */
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if (clicked == 1)
-                    {
-                        LocalRedirect(returnUrl);
-                    }
-                    else if (clicked == 2)
+                    if (clicked.Equals("2"))
                     {
                         return Redirect("/Vozniki/Create");
                     }

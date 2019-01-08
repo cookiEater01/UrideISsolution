@@ -134,8 +134,7 @@ namespace Uride
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user,
-                                        "Admin").Wait();
+                    userManager.AddToRoleAsync(user, "Admin").Wait();
                 }
             }
 
@@ -151,6 +150,14 @@ namespace Uride
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+    }
+
+    public static class addToUser
+    {
+        public static void addRole(IdentityUser user, string rule, UserManager<IdentityUser> userManager)
+        {
+            userManager.AddToRoleAsync(user, rule).Wait();
         }
     }
 }
