@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Uride.Models;
 using System.Security.Claims;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Uride
 {
@@ -44,12 +46,20 @@ namespace Uride
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.Configure<RequestLocalizationOptions>(
+               options =>
+               {
+                   options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+               });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
