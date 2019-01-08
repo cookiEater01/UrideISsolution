@@ -45,7 +45,13 @@ namespace Uride.Controllers
         // GET: Stranke/Create
         public IActionResult Create()
         {
-            ViewData["UpImeIda"] = User.getUserId();
+            if (User.IsInRole("Admin"))
+            {
+                ViewData["UpImeIda"] = "";
+            } else
+            {
+                ViewData["UpImeIda"] = User.getUserId();
+            }
             return View();
         }
 
