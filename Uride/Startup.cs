@@ -35,6 +35,10 @@ namespace Uride
 
     public class Startup
     {
+        CultureInfo[] supportedCultures = new[]
+        {
+            new CultureInfo("en-US"),
+        };
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,25 +52,26 @@ namespace Uride
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+            services.Configure<RequestLocalizationOptions>(
+               options =>
+               {
+                   options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                   options.SupportedCultures = supportedCultures;
+                   options.SupportedUICultures = supportedCultures;
+                   options.RequestCultureProviders = new List<IRequestCultureProvider>
+                    {
+                        new QueryStringRequestCultureProvider(),
+                        new CookieRequestCultureProvider()
+                    };
+               });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.Configure<RequestLocalizationOptions>(
-               options =>
-               {
-                   var supportedCultures = new List<CultureInfo>
-                   {
-                       new CultureInfo("en-US"),
-                   };
-                   options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
-                   options.SupportedCultures = supportedCultures;
-                   options.SupportedUICultures = supportedCultures;
-               });
-
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -159,6 +164,13 @@ namespace Uride
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseMvc(routes =>
             {
