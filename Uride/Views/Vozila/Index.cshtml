@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Uride.Models.Vozilo>
 
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
 @{
     ViewData["Title"] = "Podrobnejši podatki";
 }
@@ -7,7 +11,16 @@
 <h2>Podrobnejši podatki</h2>
 
 <p>
-    <a asp-action="Create">Ustvari novo vozilo</a>
+    @if (!signInManager.IsSignedIn(User))
+    {
+        var currentUser = await userManager.GetUserAsync(User);
+        var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");
+        var isDriver = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Driver");
+        if (isAdmin || isDriver)
+        {
+            <a asp-action="Create">Ustvari novo vozilo</a>
+        }
+    }
 </p>
 <table class="table">
     <thead>
@@ -28,26 +41,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Znamka)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CenaKm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StSedezev)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AvtoId">Uredi</a> |
-                <a asp-action="Details" asp-route-id="@item.AvtoId">Podrobnejši podatki</a> |
-                <a asp-action="Delete" asp-route-id="@item.AvtoId">Izbriši</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Znamka)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CenaKm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StSedezev)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AvtoId">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.AvtoId">Podrobnejši podatki</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AvtoId">Izbriši</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
