@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Uride.Models.Stranka>
 
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
 @{
     ViewData["Title"] = "Stranke";
 }
@@ -7,7 +11,15 @@
 <h2>Stranke</h2>
 
 <p>
-    <a asp-action="Create">Ustvari novo stranko</a>
+    @if (!signInManager.IsSignedIn(User))
+    {
+        var currentUser = await userManager.GetUserAsync(User);
+        var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");
+        if (isAdmin)
+        {
+            <a asp-action="Create">Ustvari novo stranko</a>
+        }
+    }
 </p>
 <table class="table">
     <thead>
@@ -28,26 +40,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priimek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naslov)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobStev)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StrankaId">Uredi</a> |
-                <a asp-action="Details" asp-route-id="@item.StrankaId">Podrobnejši podatki</a> |
-                <a asp-action="Delete" asp-route-id="@item.StrankaId">Izbriši</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priimek)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naslov)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobStev)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.StrankaId">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.StrankaId">Podrobnejši podatki</a> |
+                    @if (!signInManager.IsSignedIn(User))
+                    {
+                        var currentUser = await userManager.GetUserAsync(User);
+                        var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");
+                        if (isAdmin)
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.StrankaId">Izbriši</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
