@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Uride.Models.Voznja>
 
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
 @{
     ViewData["Title"] = "Vožnje";
 }
@@ -7,7 +11,16 @@
 <h2>Vožnje</h2>
 
 <p>
-    <a asp-action="Create">Ustvari novo vožnjo</a>
+    @if (!signInManager.IsSignedIn(User))
+    {
+        var currentUser = await userManager.GetUserAsync(User);
+        var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");
+        var isDriver = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Driver");
+        if (isAdmin || isDriver)
+        {
+            <a asp-action="Create">Ustvari novo vožnjo</a>
+        }
+    }
 </p>
 <table class="table">
     <thead>
@@ -25,23 +38,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DolzinaPoti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uporabnik.Ime) @Html.DisplayFor(modelItem => item.Uporabnik.Priimek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Voznik.Ime) @Html.DisplayFor(modelItem => item.Voznik.Priimek)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.VoznjaId">Uredi</a> |
-                <a asp-action="Details" asp-route-id="@item.VoznjaId">Podrobnejši podatki</a> |
-                <a asp-action="Delete" asp-route-id="@item.VoznjaId">Izbriši</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DolzinaPoti)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uporabnik.Ime) @Html.DisplayFor(modelItem => item.Uporabnik.Priimek)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Voznik.Ime) @Html.DisplayFor(modelItem => item.Voznik.Priimek)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.VoznjaId">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.VoznjaId">Podrobnejši podatki</a> |
+                    @if (!signInManager.IsSignedIn(User))
+                    {
+                        var currentUser = await userManager.GetUserAsync(User);
+                        var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");
+                        var isDriver = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Driver");
+                        if (isAdmin || isDriver)
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.VoznjaId">Izbriši</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
