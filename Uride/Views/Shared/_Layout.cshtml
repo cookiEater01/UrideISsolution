@@ -34,15 +34,15 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @if (User.IsInRole("Driver") || User.IsInRole("Admin"))
-                        {
+                        //@if (User.IsInRole("Driver") || User.IsInRole("Admin"))
+                        //{
                             <li>@Html.ActionLink("Vozila", "Index", "Vozila")</li>
                             <li>@Html.ActionLink("Vozniki", "Index", "Vozniki")</li>
-                        }
-                        @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
-                        {
+                        //}
+                        //@if (User.IsInRole("Customer") || User.IsInRole("Admin"))
+                        //{
                             <li>@Html.ActionLink("Stranke", "Index", "Stranke")</li>
-                        }
+                        //}
                         <li>@Html.ActionLink("Vožnje", "Index", "Voznje")</li>
                         <li>@Html.ActionLink("Računi", "Index", "Transakcije")</li>
                     }

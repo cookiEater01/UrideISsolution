@@ -16,6 +16,7 @@ using Uride.Models;
 using System.Security.Claims;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using System.Net;
 
 namespace Uride
 {
@@ -105,7 +106,12 @@ namespace Uride
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=DataUride;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+            });
+
+            //var connection = @"Server=(localdb)\mssqllocaldb;Database=DataUride;Trusted_Connection=True;ConnectRetryCount=0";
             //var connection = @"Data Source=uride-server.database.windows.net;Initial Catalog=DataUride;User ID=admin1;Password=Administrator1";
             //services.AddDbContext<DataUrideContext>(options => options.UseSqlServer(connection));
             services.AddDbContext<DataUrideContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
