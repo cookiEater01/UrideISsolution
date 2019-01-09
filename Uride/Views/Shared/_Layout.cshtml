@@ -32,18 +32,21 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="About">O nas</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
-                    @if (User.IsInRole("Driver") || User.IsInRole("Admin"))
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Vozila", "Index", "Vozila")</li>
-                        <li>@Html.ActionLink("Vozniki", "Index", "Vozniki")</li>
+                        @if (User.IsInRole("Driver") || User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Vozila", "Index", "Vozila")</li>
+                            <li>@Html.ActionLink("Vozniki", "Index", "Vozniki")</li>
+                        }
+                        @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Stranke", "Index", "Stranke")</li>
+                        }
+                        <li>@Html.ActionLink("Vožnje", "Index", "Voznje")</li>
+                        <li>@Html.ActionLink("Računi", "Index", "Transakcije")</li>
                     }
-                    @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Stranke", "Index", "Stranke")</li>
-                    }
-                    <li>@Html.ActionLink("Vožnje", "Index", "Voznje")</li>
-                    <li>@Html.ActionLink("Računi", "Index", "Transakcije")</li>
-                    </ul>
+                </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
