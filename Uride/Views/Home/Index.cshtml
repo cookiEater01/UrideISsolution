@@ -1,70 +1,80 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+@using Uride.Models;
+@{
     ViewData["Title"] = "Začetna Stran";
 }
 
-<img src="~/images/banner.png" />
-<div class="row"><center>Dobrodošli na spletni strani sistema Uride. Prosim izberite tabelo katero bi želeli videli ali urejali.</center></div>
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
 
-<table style="width:100%">
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <center><h3><a href="/Identity/Account/Login">Kliknite tu za prijavo ali registracijo!</a></h3></center>
-        <tr>
-            <th><a href="/Identity/Account/Login"><img src="~/images/vozila.png" alt="Vozila" width="150" height="150" /></a></th>
-            <th><a href="/Identity/Account/Login"><img src="~/images/voznik.png" alt="Vozniki" width="150" height="150" /></a></th>
-            <th><a href="/Identity/Account/Login"><img src="~/images/stranke.png" alt="Stranke" width="150" height="150" /></a></th>
-            <th><a href="/Identity/Account/Login"><img src="~/images/voznja.png" alt="Vožnje" width="150" height="150" /></a></th>
-            <th><a href="/Identity/Account/Login"><img src="~/images/transakcija.png" alt="Računi" width="150" height="150" /></a></th>
-        </tr>
-        <tr>
-            <th><h3><a href="/Identity/Account/Login">Vozila</a></h3></th>
-            <th><h3><a href="/Identity/Account/Login">Vozniki</a></h3></th>
-            <th><h3><a href="/Identity/Account/Login">Stranke</a></h3></th>
-            <th><h3><a href="/Identity/Account/Login">Vožnje</a></h3></th>
-            <th><h3><a href="/Identity/Account/Login">Računi</a></h3></th>
-        </tr>
-    }
-    else
-    {
-        <tr>
-            @*@if (User.IsInRole("Driver") || User.IsInRole("Admin"))
-        {*@
-            <th><hr /></th>
-            <th><hr /></th>
-            @*}
-            @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
-        {*@
-            <th><hr /></th>
-            @*}*@
-            <th><hr /></th>
-            <th><hr /></th>
-        </tr>
-        <tr>
-            @*@if (User.IsInRole("Driver") || User.IsInRole("Admin"))
-        //{*@
-            <th><a href="/Vozila"><img src="~/images/vozila.png" alt="Vozila" width="150" height="150" /></a></th>
-            <th><a href="/Vozniki"><img src="~/images/voznik.png" alt="Vozniki" width="150" height="150" /></a></th>
-            @*}
-        @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
-        {*@
-            <th><a href="/Stranke"><img src="~/images/stranke.png" alt="Stranke" width="150" height="150" /></a></th>
-            @*}*@
-            <th><a href="/Voznje"><img src="~/images/voznja.png" alt="Vožnje" width="150" height="150" /></a></th>
-            <th><a href="/Transakcije"><img src="~/images/transakcija.png" alt="Računi" width="150" height="150" /></a></th>
-        </tr>
-        <tr>
-            @*@if (User.IsInRole("Driver") || User.IsInRole("Admin"))
-        //{*@
-            <th><h3><a href="/Vozila">Vozila</a></h3></th>
-            <th><h3><a href="/Vozniki">Vozniki</a></h3></th>
-            @*}
-        @if (User.IsInRole("Customer") || User.IsInRole("Admin"))
-        {*@
-            <th><h3><a href="/Stranke">Stranke</a></h3></th>
-            @* }*@
-            <th><h3><a href="/Voznje">Vožnje</a></h3></th>
-            <th><h3><a href="/Transakcije">Računi</a></h3></th>
-        </tr>
-    }
-</table>
+    <img src="~/images/banner.png" />
+    <div class="row"><center>Dobrodošli na spletni strani sistema Uride. Prosim izberite tabelo katero bi želeli videli ali urejali.</center></div>
+
+    <table style="width:100%">
+        @if (!signInManager.IsSignedIn(User))
+        {
+            <center><h3><a href="/Identity/Account/Login">Kliknite tu za prijavo ali registracijo!</a></h3></center>
+            <tr>
+                <th><a href="/Identity/Account/Login"><img src="~/images/vozila.png" alt="Vozila" width="150" height="150" /></a></th>
+                <th><a href="/Identity/Account/Login"><img src="~/images/voznik.png" alt="Vozniki" width="150" height="150" /></a></th>
+                <th><a href="/Identity/Account/Login"><img src="~/images/stranke.png" alt="Stranke" width="150" height="150" /></a></th>
+                <th><a href="/Identity/Account/Login"><img src="~/images/voznja.png" alt="Vožnje" width="150" height="150" /></a></th>
+                <th><a href="/Identity/Account/Login"><img src="~/images/transakcija.png" alt="Računi" width="150" height="150" /></a></th>
+            </tr>
+            <tr>
+                <th><h3><a href="/Identity/Account/Login">Vozila</a></h3></th>
+                <th><h3><a href="/Identity/Account/Login">Vozniki</a></h3></th>
+                <th><h3><a href="/Identity/Account/Login">Stranke</a></h3></th>
+                <th><h3><a href="/Identity/Account/Login">Vožnje</a></h3></th>
+                <th><h3><a href="/Identity/Account/Login">Računi</a></h3></th>
+            </tr>
+        }
+        else
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+
+            var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");
+            var isDriver = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Driver");
+            var isCustomer = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Customer");
+            <tr>
+                @if (isDriver || isAdmin)
+                {
+                <th><hr /></th>
+                <th><hr /></th>
+                }
+                @if (isCustomer || isAdmin)
+                {
+                <th><hr /></th>
+                }
+                <th><hr /></th>
+                <th><hr /></th>
+            </tr>
+            <tr>
+                @if (isDriver || isAdmin)
+                {
+                <th><a href="/Vozila"><img src="~/images/vozila.png" alt="Vozila" width="150" height="150" /></a></th>
+                <th><a href="/Vozniki"><img src="~/images/voznik.png" alt="Vozniki" width="150" height="150" /></a></th>
+                }
+                @if (isCustomer || isAdmin)
+                {
+                <th><a href="/Stranke"><img src="~/images/stranke.png" alt="Stranke" width="150" height="150" /></a></th>
+                }
+                <th><a href="/Voznje"><img src="~/images/voznja.png" alt="Vožnje" width="150" height="150" /></a></th>
+                <th><a href="/Transakcije"><img src="~/images/transakcija.png" alt="Računi" width="150" height="150" /></a></th>
+            </tr>
+            <tr>
+                @if (isDriver || isAdmin)
+                {
+                <th><h3><a href="/Vozila">Vozila</a></h3></th>
+                <th><h3><a href="/Vozniki">Vozniki</a></h3></th>
+                }
+                @if (isCustomer || isAdmin)
+                {
+                <th><h3><a href="/Stranke">Stranke</a></h3></th>
+                }
+                <th><h3><a href="/Voznje">Vožnje</a></h3></th>
+                <th><h3><a href="/Transakcije">Računi</a></h3></th>
+            </tr>
+        }
+    </table>
 
