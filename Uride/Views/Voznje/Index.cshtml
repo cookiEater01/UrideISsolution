@@ -53,7 +53,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.VoznjaId">Uredi</a> |
                     <a asp-action="Details" asp-route-id="@item.VoznjaId">Podrobnejši podatki</a> |
-                    @if (!signInManager.IsSignedIn(User))
+                    @if (signInManager.IsSignedIn(User))
                     {
                         var currentUser = await userManager.GetUserAsync(User);
                         var isAdmin = currentUser != null && await userManager.IsInRoleAsync(currentUser, "Admin");

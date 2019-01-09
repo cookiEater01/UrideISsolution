@@ -50,7 +50,22 @@ namespace Uride.Controllers
         // GET: Vozniki/Create
         public IActionResult Create()
         {
-            ViewData["AvtoId"] = new SelectList(_context.Vozilo, "AvtoId", "Model");
+            var data = (from p in _context.Vozilo
+                        select new
+                        {
+                            Value = p.AvtoId,
+                            Text = p.Znamka + " " + p.Model
+                        }).ToList();
+            List<SelectListItem> listdata = new List<SelectListItem>();
+            foreach (var item in data)
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Value = Convert.ToString(item.Value);
+                sli.Text = item.Text;
+                listdata.Add(sli);
+            }
+            //ViewData["AvtoId"] = new SelectList(_context.Vozilo, "AvtoId", "Model");
+            ViewData["AvtoId"] = new SelectList(listdata, "Value", "Text");
             if (User.IsInRole("Admin"))
             {
                 ViewData["UpImeIda"] = "";
