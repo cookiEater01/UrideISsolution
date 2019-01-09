@@ -49,8 +49,38 @@ namespace Uride.Controllers
         // GET: Voznje/Create
         public IActionResult Create()
         {
-            ViewData["UporabnikId"] = new SelectList(_context.Stranka, "StrankaId", "MobStev");
-            ViewData["VoznikId"] = new SelectList(_context.Voznik, "StVozniske", "Ime");
+            //ViewData["UporabnikId"] = new SelectList(_context.Stranka, "StrankaId", "Ime");
+            var data = (from p in _context.Stranka
+                        select new
+                        {
+                            Value = p.StrankaId,
+                            Text = p.Ime+" "+p.Priimek
+                        }).ToList();
+            List<SelectListItem> listdata = new List<SelectListItem>();
+            foreach (var item in data)
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Value = Convert.ToString(item.Value);
+                sli.Text = item.Text;
+                listdata.Add(sli);
+            }
+            ViewData["UporabnikId"] = new SelectList(listdata, "Value", "Text");
+            var data1 = (from u in _context.Voznik
+                        select new
+                        {
+                            Value = u.StVozniske,
+                            Text = u.Ime + " " + u.Priimek
+                        }).ToList();
+            List<SelectListItem> listdata1 = new List<SelectListItem>();
+            foreach (var item in data1)
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Value = Convert.ToString(item.Value);
+                sli.Text = item.Text;
+                listdata1.Add(sli);
+            }
+            //ViewData["VoznikId"] = new SelectList(_context.Voznik, "StVozniske", "Ime");
+            ViewData["VoznikId"] = new SelectList(listdata1, "Value", "Text");
             return View();
         }
 
